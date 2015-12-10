@@ -5,6 +5,7 @@
 
 Node::Node()
 {
+	visited = false;
 }
 
 Node::Node(int i, int c, int w)
@@ -13,6 +14,7 @@ Node::Node(int i, int c, int w)
 	colour = c;
 	weight = w;
 	maxWeight = std::max(maxWeight, w);
+	visited = false;
 }
 
 
@@ -48,6 +50,16 @@ void Node::setWeight(int w)
 int Node::getWeight()
 {
 	return weight;
+}
+
+void Node::setVisited(bool v)
+{
+	visited = v;
+}
+
+bool Node::getVisited()
+{
+	return visited;
 }
 
 std::ostream& operator<<(std::ostream& o, const Node& n)

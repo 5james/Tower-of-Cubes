@@ -1,5 +1,8 @@
+//Low eficiency when low amount of colours in comparison with number of cubes
+
 #pragma once
 #include "Graph.h"
+
 
 class GraphBFSTree : public Graph
 {

@@ -1,5 +1,5 @@
-#include "Graph.h"
 #include "declarations.h"
+#include "Graph.h"
 #include <iostream>
 #include <Windows.h>
 #include <fstream>
@@ -114,6 +114,8 @@ void Graph::showNodes()
 	//	}
 	//	myfile << std::endl << Node::maxWeight;
 	//}
+
+
 	for (unsigned i = 0; i < nodes.size(); ++i)
 	{
 		std::cout << nodes.at(i);

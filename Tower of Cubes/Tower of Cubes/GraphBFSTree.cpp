@@ -87,6 +87,7 @@ void GraphBFSTree::solve()
 		while (!toDo.empty())
 		{
 			size++;
+			std::cout << size << " zaglebienie" << std::endl;
 
 			for (unsigned j = 0; j < toDo.size(); ++j)
 			{
