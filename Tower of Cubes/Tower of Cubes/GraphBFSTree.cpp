@@ -120,6 +120,10 @@ void GraphBFSTree::solve()
 				higher.push_back(lastLeaf->id);
 				lastLeaf = lastLeaf->parent;
 			}
+			if (lastLeaf)
+			{
+				higher.push_back(lastLeaf->id);
+			}
 			tower = higher;
 				
 		}

@@ -1,6 +1,6 @@
 #pragma once
 
-#define CUBES 13
+#define CUBES 8
 #define COLOURS 8
 #define MAX_WEIGHT 16
 
