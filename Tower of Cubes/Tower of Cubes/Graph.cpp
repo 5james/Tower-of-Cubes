@@ -2,7 +2,7 @@
 #include "declarations.h"
 #include <iostream>
 #include <Windows.h>
-
+#include <fstream>
 
 void Graph::generateColoursCube(std::vector<int>& colors)
 {
@@ -40,6 +40,12 @@ void Graph::addCubeToNodes(int id)
 void Graph::addCubeNeighbourhood()
 {
 	nodes.at(nodes.size() - 6).neighbours.push_back(&nodes.at(nodes.size() - 5));
+	if (nodes.size() > 6)
+	{
+		nodes.at(nodes.size() - 6).neighbours.push_back(&nodes.at(nodes.size() - 7));
+		nodes.at(nodes.size() - 7).neighbours.push_back(&nodes.at(nodes.size() - 6));
+	}
+		
 
 	nodes.at(nodes.size() - 5).neighbours.push_back(&nodes.at(nodes.size() - 6));
 	nodes.at(nodes.size() - 5).neighbours.push_back(&nodes.at(nodes.size() - 4));
@@ -54,6 +60,7 @@ void Graph::addCubeNeighbourhood()
 	nodes.at(nodes.size() - 2).neighbours.push_back(&nodes.at(nodes.size() - 4));
 
 	nodes.at(nodes.size() - 1).neighbours.push_back(&nodes.at(nodes.size() - 4));
+
 
 }
 
@@ -98,11 +105,22 @@ void Graph::generateNodes()
 
 void Graph::showNodes()
 {
+	//std::ofstream myfile ("test.txt");
+	//if (myfile.is_open())
+	//{
+	//	for (unsigned i = 0; i < nodes.size(); ++i)
+	//	{
+	//		myfile << nodes.at(i);
+	//	}
+	//	myfile << std::endl << Node::maxWeight;
+	//}
 	for (unsigned i = 0; i < nodes.size(); ++i)
 	{
 		std::cout << nodes.at(i);
 	}
+	std::cout << std::endl << Node::maxWeight;
 }
+
 
 Graph::Graph()
 {

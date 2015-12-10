@@ -17,6 +17,6 @@ public:
 	~Graph();
 	void generateNodes();
 	void showNodes();
-	//virtual void solve() = 0;
+	virtual void solve() = 0;
 };
 

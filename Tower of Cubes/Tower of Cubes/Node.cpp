@@ -1,6 +1,7 @@
 #include "Node.h"
 #include <iostream>
 #include <cstdlib>
+#include <algorithm> 
 
 Node::Node()
 {
@@ -11,6 +12,7 @@ Node::Node(int i, int c, int w)
 	id = i;
 	colour = c;
 	weight = w;
+	maxWeight = std::max(maxWeight, w);
 }
 
 

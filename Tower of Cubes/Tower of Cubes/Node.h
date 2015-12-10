@@ -7,8 +7,10 @@ private:
 	int id;
 	int colour;
 	int weight;
+	
 public:
 	std::vector<Node*> neighbours;
+	static int maxWeight;
 
 	Node();
 	Node(int i, int c, int w);
