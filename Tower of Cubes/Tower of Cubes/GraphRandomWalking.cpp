@@ -38,7 +38,10 @@ void GraphRandomWalking::RandomWalking(Node *actual, std::vector<int>& cubesVisi
 		std::vector<Node*> possibleNext;
 		for (unsigned i = 0; i < actual->neighbours.size(); ++i)
 		{
-			if (actual->neighbours.at(i)->getVisited() == false && cubeIsNotVisited(cubesVisited, actual->neighbours.at(i)->getId()) )
+			if (actual->neighbours.at(i)->getVisited() == false 
+				&& cubeIsNotVisited(cubesVisited, actual->neighbours.at(i)->getId()) 
+				&& actual->getWeight() > actual->neighbours.at(i)->getWeight()
+				)
 				possibleNext.push_back(actual->neighbours.at(i));
 		}
 		if (!possibleNext.empty())
@@ -80,7 +83,7 @@ void GraphRandomWalking::solve()
 		std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
 	}
 
-	std::cout << std::endl;
+	std::cout << std::endl << maxTower.size() << std::endl;
 	for (unsigned i = 0; i < maxTower.size(); ++i)
 	{
 		std::cout << maxTower.at(i) << " ";
