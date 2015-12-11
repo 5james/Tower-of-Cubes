@@ -1,5 +1,6 @@
 #include <iostream>
 #include <time.h>
+#include <stdio.h>
 #include "Graph.h"
 #include "GraphBFSTree.h"
 #include "GraphDFS.h"
@@ -9,9 +10,18 @@ int Node::maxWeight = 0;
 int main()
 {
 	srand((unsigned)time((time_t)NULL));
+
+
+	if (remove("test.txt") != 0)
+		perror("Error deleting file");
+	else
+		puts("File successfully deleted");
+
+
 	//Graph g;
 	//g.generateNodes();
 	//g.showNodes();
+
 
 	//GraphBFSTree g;
 	//g.generateNodes();
@@ -19,10 +29,12 @@ int main()
 	//g.allNeighboursOfId(0);
 	//g.solve();
 
+
 	GraphDFS g;
 	g.generateNodes();
 	g.showNodes();
 	g.solve();
+
 
 	int i;
 	std::cin >> i;

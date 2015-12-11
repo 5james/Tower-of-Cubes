@@ -105,22 +105,22 @@ void Graph::generateNodes()
 
 void Graph::showNodes()
 {
-	//std::ofstream myfile ("test.txt");
-	//if (myfile.is_open())
-	//{
-	//	for (unsigned i = 0; i < nodes.size(); ++i)
-	//	{
-	//		myfile << nodes.at(i);
-	//	}
-	//	myfile << std::endl << Node::maxWeight;
-	//}
-
-
-	for (unsigned i = 0; i < nodes.size(); ++i)
+	std::ofstream myfile ("test.txt");
+	if (myfile.is_open())
 	{
-		std::cout << nodes.at(i);
+		for (unsigned i = 0; i < nodes.size(); ++i)
+		{
+			myfile << nodes.at(i);
+		}
+		myfile << std::endl << Node::maxWeight;
 	}
-	std::cout << std::endl << Node::maxWeight;
+
+
+	//for (unsigned i = 0; i < nodes.size(); ++i)
+	//{
+	//	std::cout << nodes.at(i);
+	//}
+	//std::cout << std::endl << Node::maxWeight;
 }
 
 
