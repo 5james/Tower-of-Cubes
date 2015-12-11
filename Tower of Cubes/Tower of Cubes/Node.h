@@ -10,6 +10,7 @@ private:
 	bool visited;
 public:
 	std::vector<Node*> neighbours;
+	Node* oppositeWall;
 	static int maxWeight;
 
 	Node();

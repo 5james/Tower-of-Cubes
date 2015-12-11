@@ -45,23 +45,33 @@ void Graph::addCubeNeighbourhood()
 		nodes.at(nodes.size() - 6).neighbours.push_back(&nodes.at(nodes.size() - 7));
 		nodes.at(nodes.size() - 7).neighbours.push_back(&nodes.at(nodes.size() - 6));
 	}
+
+	nodes.at(nodes.size() - 6).oppositeWall = &(nodes.at(nodes.size() - 4));
 		
 
 	nodes.at(nodes.size() - 5).neighbours.push_back(&nodes.at(nodes.size() - 6));
 	nodes.at(nodes.size() - 5).neighbours.push_back(&nodes.at(nodes.size() - 4));
+
+	nodes.at(nodes.size() - 5).oppositeWall = &(nodes.at(nodes.size() - 2));
 
 	nodes.at(nodes.size() - 4).neighbours.push_back(&nodes.at(nodes.size() - 5));
 	nodes.at(nodes.size() - 4).neighbours.push_back(&nodes.at(nodes.size() - 3));
 	nodes.at(nodes.size() - 4).neighbours.push_back(&nodes.at(nodes.size() - 2));
 	nodes.at(nodes.size() - 4).neighbours.push_back(&nodes.at(nodes.size() - 1));
 
+	nodes.at(nodes.size() - 4).oppositeWall = &(nodes.at(nodes.size() - 6));
+
 	nodes.at(nodes.size() - 3).neighbours.push_back(&nodes.at(nodes.size() - 4));
+
+	nodes.at(nodes.size() - 3).oppositeWall = &(nodes.at(nodes.size() - 1));
 
 	nodes.at(nodes.size() - 2).neighbours.push_back(&nodes.at(nodes.size() - 4));
 
+	nodes.at(nodes.size() - 2).oppositeWall = &(nodes.at(nodes.size() - 5));
+
 	nodes.at(nodes.size() - 1).neighbours.push_back(&nodes.at(nodes.size() - 4));
 
-
+	nodes.at(nodes.size() - 1).oppositeWall = &(nodes.at(nodes.size() - 3));
 }
 
 void Graph::addColourNeighbourhood()

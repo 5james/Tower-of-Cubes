@@ -40,7 +40,7 @@ void GraphRandomWalking::RandomWalking(Node *actual, std::vector<int>& cubesVisi
 		{
 			if (actual->neighbours.at(i)->getVisited() == false 
 				&& cubeIsNotVisited(cubesVisited, actual->neighbours.at(i)->getId()) 
-				&& actual->getWeight() > actual->neighbours.at(i)->getWeight()
+				&& actual->getWeight() >= actual->neighbours.at(i)->getWeight()
 				)
 				possibleNext.push_back(actual->neighbours.at(i));
 		}
