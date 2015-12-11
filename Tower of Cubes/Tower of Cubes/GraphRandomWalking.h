@@ -2,11 +2,11 @@
 #include "Graph.h"
 
 
-class GraphDFS : public Graph
+class GraphRandomWalking : public Graph
 {
 private:
 	bool cubeIsNotVisited(std::vector<int>& cubesVisited, int id);
-	void DFS(Node* actual, std::vector<int> &cubesVisited, std::vector<int> &maxTower, bool inside);
+	void RandomWalking(Node* actual, std::vector<int> &cubesVisited);
 public:
 	void solve();
 

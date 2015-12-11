@@ -4,6 +4,7 @@
 #include "Graph.h"
 #include "GraphBFSTree.h"
 #include "GraphDFS.h"
+#include "GraphRandomWalking.h"
 int Node::maxWeight = 0;
 
 
@@ -30,7 +31,12 @@ int main()
 	//g.solve();
 
 
-	GraphDFS g;
+	//GraphDFS g;
+	//g.generateNodes();
+	//g.showNodes();
+	//g.solve();
+
+	GraphRandomWalking g;
 	g.generateNodes();
 	g.showNodes();
 	g.solve();

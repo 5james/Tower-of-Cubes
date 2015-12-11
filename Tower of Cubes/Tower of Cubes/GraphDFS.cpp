@@ -65,8 +65,6 @@ void GraphDFS::DFS(Node *actual, std::vector<int>& cubesVisited, std::vector<int
 		maxTower = cubesVisited;
 	}
 
-
-
 }
 
 void GraphDFS::solve()

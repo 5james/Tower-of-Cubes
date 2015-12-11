@@ -121,6 +121,7 @@
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphBFSTree.cpp" />
     <ClCompile Include="GraphDFS.cpp" />
+    <ClCompile Include="GraphRandomWalking.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Node.cpp" />
   </ItemGroup>
@@ -129,6 +130,7 @@
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphBFSTree.h" />
     <ClInclude Include="GraphDFS.h" />
+    <ClInclude Include="GraphRandomWalking.h" />
     <ClInclude Include="Node.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
