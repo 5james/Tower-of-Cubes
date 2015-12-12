@@ -31,15 +31,15 @@ int main()
 	//g.solve();
 
 
-	//GraphDFS g;
-	//g.generateNodes();
-	//g.showNodes();
-	//g.solve();
-
-	GraphRandomWalking g;
+	GraphDFS g;
 	g.generateNodes();
 	g.showNodes();
 	g.solve();
+
+	//GraphRandomWalking g;
+	//g.generateNodes();
+	//g.showNodes();
+	//g.solve();
 
 
 	int i;

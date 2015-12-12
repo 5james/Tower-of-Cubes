@@ -8,20 +8,21 @@
 //		1. zrób vector w DFS, ¿ebyœ wiedzia³ które wierzcho³ki by³y na dole
 //		2. jak zrobisz 1. to dodaj do if w 38 linii warunek, ¿e mo¿esz dodaæ tylko do przeciwleg³eœ œciany tamtego
 //			w przeciwnym razie return??
+//		3. Dodaj mo¿liwoœæ koñczenia wczeœniej
 
 
 
-bool GraphDFS::cubeIsNotVisited(std::vector<int>& cubesVisited, int id)
+bool GraphDFS::cubeIsNotVisited(std::vector<std::pair<int, Node*> >& cubesVisited, int id)
 {
 	for (unsigned i = 0; i < cubesVisited.size(); ++i)
 	{
-		if (id == cubesVisited.at(i))
+		if (id == cubesVisited.at(i).first)
 			return false;
 	}
 	return true;
 }
 
-void GraphDFS::DFS(Node *actual, std::vector<int>& cubesVisited, std::vector<int>& maxTower, bool inside, int nested)
+void GraphDFS::DFS(Node *actual, std::vector<std::pair<int, Node*> >& cubesVisited, std::vector<std::pair<int, Node*> >& maxTower, bool inside, int nested)
 {
 
 	if (nested > 2)
@@ -29,20 +30,25 @@ void GraphDFS::DFS(Node *actual, std::vector<int>& cubesVisited, std::vector<int
 
 	actual->setVisited(true);
 
+	bool added = false;
+
 	if (cubesVisited.empty())
 	{
-		cubesVisited.push_back(actual->getId());
+		cubesVisited.push_back(std::make_pair(actual->getId(),actual) );
 		nested = 0;
+		added = true;
 	}
 		
 
 	if (!cubesVisited.empty() 
-		&& actual->getId() != cubesVisited.back() 
+		&& actual->getId() != cubesVisited.back().first 
 		&& inside == false
+		&& actual->getColour() == cubesVisited.back().second->oppositeWall->getColour()
 		)
 	{
-		cubesVisited.push_back(actual->getId());
+		cubesVisited.push_back(std::make_pair(actual->getId(), actual) );
 		nested = 0;
+		added = true;
 	}
 		
 
@@ -77,7 +83,7 @@ void GraphDFS::DFS(Node *actual, std::vector<int>& cubesVisited, std::vector<int
 	}
 
 	actual->setVisited(false);
-	if (inside == false)
+	if (inside == false && added == true)
 		cubesVisited.pop_back();
 
 	if (cubesVisited.size() > maxTower.size())
@@ -89,11 +95,11 @@ void GraphDFS::DFS(Node *actual, std::vector<int>& cubesVisited, std::vector<int
 
 void GraphDFS::solve()
 {
-	std::vector<int> maxTower;
+	std::vector<std::pair<int, Node*> > maxTower;
 	for (unsigned i = 0; i < nodes.size(); ++i)
 	{
-		std::vector<int> tempTower;
-		std::vector<int> tempMaxTower;
+		std::vector<std::pair<int, Node*> > tempTower;
+		std::vector<std::pair<int, Node*> > tempMaxTower;
 
 		for (auto j = nodes.begin(); j != nodes.end(); ++j)
 		{
@@ -107,7 +113,13 @@ void GraphDFS::solve()
 		if (tempMaxTower.size() > maxTower.size())
 		{
 			maxTower = tempMaxTower;
-			std::cout << "Zmieniam dla " << i;
+			std::cout << std::endl << "Zmieniam dla " << i;
+		}
+		if (tempMaxTower.size() == CUBES)
+		{
+			std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
+
+			break;
 		}
 
 		//std::cout << std::endl;
@@ -115,13 +127,15 @@ void GraphDFS::solve()
 		//{
 		//	std::cout << tempMaxTower.at(i) << " ";
 		//}
+
+
 		std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
 	}
 
 	std::cout << std::endl;
 	for (unsigned i = 0; i < maxTower.size(); ++i)
 	{
-		std::cout << maxTower.at(i) << " ";
+		std::cout << maxTower.at(i).first << " ";
 	}
 }
 
