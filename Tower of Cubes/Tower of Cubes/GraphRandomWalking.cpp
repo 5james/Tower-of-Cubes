@@ -72,6 +72,10 @@ GraphRandomWalking::GraphRandomWalking(Graph & g) : Graph(g)
 {
 }
 
+GraphRandomWalking::GraphRandomWalking(char * name) : Graph(name)
+{
+}
+
 GraphRandomWalking::GraphRandomWalking()
 {
 }

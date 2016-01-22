@@ -18,9 +18,10 @@ public:
 	Graph();
 	Graph(Graph &g);
 	Graph(int amountOfCubes, int coloursx, int maxWeightx);
+	Graph(char *name);
 	~Graph();
 	void generateNodes();
-	void loadNodes();
+	void loadNodes(char *name);
 	void showNodes();
 	std::vector<Node>* getNodes();
 	int getCubes();

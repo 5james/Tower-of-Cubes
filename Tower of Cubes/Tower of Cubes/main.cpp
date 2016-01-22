@@ -25,7 +25,6 @@ int main()
 	//	puts("File successfully deleted");
 
 
-
 	//GraphBFSTree g(700, 700, 700);
 	//g.generateNodes();
 	//std::cout << "juz" << std::endl;
@@ -36,8 +35,14 @@ int main()
 	//c.solve();
 	//s.solve();
 
-	Generator mygen(200, 200, 200);
-	mygen.generate();
+	Generator g(2, 10, 10);
+	g.generate();
+
+	//char *name = "data.txt";
+	//GraphBFSTree g(name);
+	//g.showNodes();
+
+
 
 	int i;
 	std::cin >> i;

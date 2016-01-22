@@ -3,12 +3,6 @@
 #include <Windows.h>
 #include <fstream>
 
-//	TODO:
-//		1. zrób vector w DFS, ¿ebyœ wiedzia³ które wierzcho³ki by³y na dole
-//		2. jak zrobisz 1. to dodaj do if w 38 linii warunek, ¿e mo¿esz dodaæ tylko do przeciwleg³eœ œciany tamtego
-//			w przeciwnym razie return??
-//		3. Dodaj mo¿liwoœæ koñczenia wczeœniej
-
 
 
 bool GraphDFS::cubeIsNotVisited(std::vector<std::pair<int, Node*> >& cubesVisited, int id)
@@ -113,6 +107,10 @@ GraphDFS::GraphDFS(int amountOfCubes, int coloursx, int maxWeightx) : Graph(amou
 }
 
 GraphDFS::GraphDFS(Graph &g) : Graph(g)
+{
+}
+
+GraphDFS::GraphDFS(char * name) : Graph(name)
 {
 }
 

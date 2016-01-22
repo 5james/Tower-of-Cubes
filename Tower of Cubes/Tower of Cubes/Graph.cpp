@@ -112,13 +112,34 @@ void Graph::generateNodes()
 	addColourNeighbourhood();
 }
 
-void Graph::loadNodes()
+void Graph::loadNodes(char *name)
 {
-	std::ifstream myfile("data.txt");
+	std::ifstream myfile(name);
 	if (myfile.is_open())
 	{
-
+		myfile >> cubes;
+		myfile >> colours;
+		myfile >> maxWeight;
+		std::cout << cubes << " " << colours << " " << maxWeight << " ";
+		for (int i = 0; i < cubes; ++i)
+		{
+			int w;
+			myfile >> w;
+			for (int j = 0; j < 6; ++j)
+			{
+				int c;
+				myfile >> c;
+				nodes.push_back(Node(i, c, w));
+			}
+			addCubeNeighbourhood();
+		}
+		addColourNeighbourhood();
 	}
+	else
+	{
+		std::cout << "Unable to open file";
+	}
+
 }
 
 
@@ -184,6 +205,11 @@ Graph::Graph(int amountOfCubes, int coloursx, int maxWeightx)
 	maxWeight = maxWeightx;
 	cubes = amountOfCubes;
 	nodes.reserve(6 * cubes);
+}
+
+Graph::Graph(char * name)
+{
+	loadNodes(name);
 }
 
 

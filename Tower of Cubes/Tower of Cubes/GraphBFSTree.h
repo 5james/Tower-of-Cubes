@@ -41,6 +41,7 @@ private:
 public:
 	GraphBFSTree(int amountOfCubes, int coloursx, int maxWeightx);
 	GraphBFSTree(Graph& g);
+	GraphBFSTree(char *name);
 	~GraphBFSTree();
 	void solve();	
 };

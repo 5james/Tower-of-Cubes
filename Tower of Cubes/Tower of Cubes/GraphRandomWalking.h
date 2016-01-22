@@ -11,6 +11,7 @@ private:
 public:
 	GraphRandomWalking(int amountOfCubes, int coloursx, int maxWeightx);
 	GraphRandomWalking(Graph &g);
+	GraphRandomWalking(char* name);
 	GraphRandomWalking();
 	~GraphRandomWalking();
 	void solve();

@@ -138,6 +138,10 @@ GraphBFSTree::GraphBFSTree(Graph & g): Graph(g)
 {
 }
 
+GraphBFSTree::GraphBFSTree(char * name): Graph(name)
+{
+}
+
 void GraphBFSTree::solve()
 {
 	std::vector<int> starters;

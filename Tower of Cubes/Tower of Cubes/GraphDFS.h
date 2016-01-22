@@ -12,6 +12,7 @@ private:
 public:
 	GraphDFS(int amountOfCubes, int coloursx, int maxWeightx);
 	GraphDFS(Graph &g);
+	GraphDFS(char *name);
 	GraphDFS();
 	~GraphDFS();
 	void solve();
