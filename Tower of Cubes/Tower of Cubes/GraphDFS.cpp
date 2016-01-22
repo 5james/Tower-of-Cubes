@@ -1,4 +1,3 @@
-#include "declarations.h"
 #include "GraphDFS.h"
 #include <iostream>
 #include <Windows.h>
@@ -49,6 +48,10 @@ void GraphDFS::DFS(Node *actual, std::vector<std::pair<int, Node*> >& cubesVisit
 		cubesVisited.push_back(std::make_pair(actual->getId(), actual) );
 		nested = 0;
 		added = true;
+
+		//TODO tutaj zrob DFS do przeciwleglego wierzcholka i return
+		//DFS(actual->neighbours.at(i), cubesVisited, maxTower, false, 0);
+		//return
 	}
 		
 
@@ -115,7 +118,7 @@ void GraphDFS::solve()
 			maxTower = tempMaxTower;
 			std::cout << std::endl << "Zmieniam dla " << i;
 		}
-		if (tempMaxTower.size() == CUBES)
+		if (tempMaxTower.size() == cubes)
 		{
 			std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
 

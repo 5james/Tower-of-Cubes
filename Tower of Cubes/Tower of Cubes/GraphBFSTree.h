@@ -8,16 +8,13 @@ class GraphBFSTree : public Graph
 {
 private:
 
-public:
-	std::vector<int> allNeighboursOfId(int id);
-
-	void solve();
-
 	class SimpleNodesTree
 	{
 	public:
 		SimpleNodesTree* parent;
 		int id;
+		int bottomColor;
+		int depth;
 		std::vector<SimpleNodesTree*> child;
 		bool operator< (SimpleNodesTree& q)
 		{
@@ -32,7 +29,17 @@ public:
 			return false;
 		}
 	};
-private:
+
+
+	//void colorOnBottom(SimpleNodesTree* &current);
+	std::vector<std::pair<int, int>> allNeighboursOfIdWithColour(int id, int colour);
+	bool checkOppositeWallsColour(SimpleNodesTree* toCheck);
 	bool isIdUnique(int id, SimpleNodesTree* current);
+
+
+public:
+	GraphBFSTree(int amountOfCubes, int coloursx, int maxWeightx);
+	~GraphBFSTree();
+	void solve();	
 };
 

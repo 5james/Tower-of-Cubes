@@ -1,4 +1,3 @@
-#include "declarations.h"
 #include "Graph.h"
 #include <iostream>
 #include <Windows.h>
@@ -13,7 +12,7 @@ void Graph::generateColoursCube(std::vector<int>& colors)
 		do
 		{
 			unique = true;
-			temp = rand() % COLOURS;
+			temp = rand() % colours;
 			for (unsigned j = 0; j < colors.size(); ++j)
 			{
 				if (temp == colors.at(j))
@@ -29,7 +28,7 @@ void Graph::addCubeToNodes(int id)
 {
 	std::vector<int> colors;
 	generateColoursCube(colors);
-	int weight = rand() % MAX_WEIGHT;
+	int weight = rand() % maxWeight;
 	for (int i = 0; i < 6; ++i)
 	{
 		nodes.push_back(Node(id, colors.at(i), weight));
@@ -76,7 +75,7 @@ void Graph::addCubeNeighbourhood()
 
 void Graph::addColourNeighbourhood()
 {
-	for (int i = 0; i < COLOURS; ++i)
+	for (int i = 0; i < colours; ++i)
 	{
 		std::vector<Node*> vec;
 		for (unsigned j = 0; j < nodes.size(); ++j)
@@ -106,7 +105,7 @@ void Graph::addColourNeighbourhood()
 
 void Graph::generateNodes()
 {
-	for (int i = 0; i < CUBES; ++i)
+	for (int i = 0; i < cubes; ++i)
 	{
 		addCubeToNodes(i);
 	}
@@ -130,13 +129,21 @@ void Graph::showNodes()
 	{
 		std::cout << nodes.at(i);
 	}
-	std::cout << std::endl << Node::maxWeight;
+	std::cout << std::endl << Node::maxWeight << std::endl;
 }
+
 
 
 Graph::Graph()
 {
-	nodes.reserve(6 * CUBES);
+}
+
+Graph::Graph(int amountOfCubes, int coloursx, int maxWeightx)
+{
+	colours = coloursx;
+	maxWeight = maxWeightx;
+	cubes = amountOfCubes;
+	nodes.reserve(6 * cubes);
 }
 
 

@@ -1,4 +1,3 @@
-#include "declarations.h"
 #include "GraphRandomWalking.h"
 #include <iostream>
 #include <Windows.h>

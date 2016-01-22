@@ -64,7 +64,13 @@ bool Node::getVisited()
 
 std::ostream& operator<<(std::ostream& o, const Node& n)
 {
-	o << "[" << n.id << "][" << n.colour << "][" << n.weight << "] " << n.neighbours.size() << "   ";
+	static int num = 1;
+	if (num == 7)
+		num = 1;
+
+	if (num == 1)
+		o << "\n";
+	o << num++ << " [" << n.id << "][" << n.colour << "][" << n.weight << "] " << n.neighbours.size() << "   ";
 	for (unsigned i = 0; i < n.neighbours.size(); ++i)
 	{
 		o << "[" << n.neighbours.at(i)->getId() << "][" << n.neighbours.at(i)->getColour() << "][" << n.neighbours.at(i)->getWeight() << "] ";
