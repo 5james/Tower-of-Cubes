@@ -16,10 +16,16 @@ protected:
 	void addColourNeighbourhood();
 public:
 	Graph();
+	Graph(Graph &g);
 	Graph(int amountOfCubes, int coloursx, int maxWeightx);
 	~Graph();
 	void generateNodes();
 	void showNodes();
+	std::vector<Node>* getNodes();
+	int getCubes();
+	int getColours();
+	int getMaxWeight();
+
 	virtual void solve() = 0;
 };
 

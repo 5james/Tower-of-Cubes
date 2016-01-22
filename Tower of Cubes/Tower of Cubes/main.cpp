@@ -24,17 +24,17 @@ int main()
 	//g.showNodes();
 
 
-	GraphBFSTree g(5, 6, 100);
-	g.generateNodes();
-	g.showNodes();
-	//g.allNeighboursOfId(0);
-	g.solve();
-
-
-	//GraphDFS g;
+	//GraphBFSTree g(4, 6, 100);
 	//g.generateNodes();
 	//g.showNodes();
+	////g.allNeighboursOfId(0);
 	//g.solve();
+
+
+	GraphDFS g(4, 6, 100);
+	g.generateNodes();
+	g.showNodes();
+	g.solve();
 
 	//GraphRandomWalking g;
 	//g.generateNodes();

@@ -132,10 +132,40 @@ void Graph::showNodes()
 	std::cout << std::endl << Node::maxWeight << std::endl;
 }
 
+std::vector<Node>* Graph::getNodes()
+{
+	return &nodes;
+}
+
+int Graph::getCubes()
+{
+	return cubes;
+}
+
+int Graph::getColours()
+{
+	return colours;
+}
+
+int Graph::getMaxWeight()
+{
+	return maxWeight;
+}
+
 
 
 Graph::Graph()
 {
+}
+
+Graph::Graph(Graph & g)
+{
+	std::vector<Node> temp(g.getNodes()->begin(), g.getNodes()->end());
+	nodes = temp;
+	colours = g.getColours();
+	maxWeight = g.getMaxWeight();
+	cubes = g.getCubes();
+
 }
 
 Graph::Graph(int amountOfCubes, int coloursx, int maxWeightx)

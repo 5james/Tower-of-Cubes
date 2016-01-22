@@ -21,7 +21,12 @@ bool GraphDFS::cubeIsNotVisited(std::vector<std::pair<int, Node*> >& cubesVisite
 	return true;
 }
 
-void GraphDFS::DFS(Node *actual, std::vector<std::pair<int, Node*> >& cubesVisited, std::vector<std::pair<int, Node*> >& maxTower, bool inside, int nested)
+void GraphDFS::DFS(	Node *actual,
+					std::vector<std::pair<int, Node*> >& cubesVisited,
+					std::vector<std::pair<int, Node*> >& maxTower,
+					bool inside,
+					int nested
+					)
 {
 
 	if (nested > 2)
@@ -36,18 +41,25 @@ void GraphDFS::DFS(Node *actual, std::vector<std::pair<int, Node*> >& cubesVisit
 		cubesVisited.push_back(std::make_pair(actual->getId(),actual) );
 		nested = 0;
 		added = true;
+
+		DFS(actual->oppositeWall, cubesVisited, maxTower, true, 0);
+		
 	}
 		
-
-	if (!cubesVisited.empty() 
-		&& actual->getId() != cubesVisited.back().first 
-		&& inside == false
-		&& actual->getColour() == cubesVisited.back().second->oppositeWall->getColour()
+	bool skip = false;
+	if (!cubesVisited.empty() &&
+		actual->getId() != cubesVisited.back().first &&
+		inside == false &&
+		actual->getColour() == cubesVisited.back().second->oppositeWall->getColour() &&
+		actual->getWeight() <= cubesVisited.back().second->oppositeWall->getWeight()
 		)
 	{
 		cubesVisited.push_back(std::make_pair(actual->getId(), actual) );
 		nested = 0;
 		added = true;
+
+		DFS(actual->oppositeWall, cubesVisited, maxTower, true, 0);
+		skip = true;
 
 		//TODO tutaj zrob DFS do przeciwleglego wierzcholka i return
 		//DFS(actual->neighbours.at(i), cubesVisited, maxTower, false, 0);
@@ -67,33 +79,45 @@ void GraphDFS::DFS(Node *actual, std::vector<std::pair<int, Node*> >& cubesVisit
 	//}
 
 
-
-	for (unsigned i = 0; i < actual->neighbours.size(); ++i)
+	if (!skip)
 	{
-		if (actual->neighbours.at(i)->getId() == actual->getId()
-			&& actual->neighbours.at(i)->getVisited() == false)
+		for (unsigned i = 0; i < actual->neighbours.size(); ++i)
 		{
-			DFS(actual->neighbours.at(i), cubesVisited, maxTower, true, nested+1);
-		}
-		if ( actual->getColour() == actual->neighbours.at(i)->getColour()
-			&& actual->neighbours.at(i)->getId() != actual->getId()
-			&& actual->neighbours.at(i)->getVisited() == false
-			&& cubeIsNotVisited(cubesVisited, actual->neighbours.at(i)->getId())
-			)
-		{
-			DFS(actual->neighbours.at(i), cubesVisited, maxTower, false, 0);
+			//if (actual->neighbours.at(i)->getId() == actual->getId()
+			//	&& actual->neighbours.at(i)->getVisited() == false)
+			//{
+			//	DFS(actual->neighbours.at(i), cubesVisited, maxTower, true, nested + 1);
+			//}
+			if (actual->getColour() == actual->neighbours.at(i)->getColour()
+				&& actual->neighbours.at(i)->getId() != actual->getId()
+				&& actual->neighbours.at(i)->getVisited() == false
+				&& cubeIsNotVisited(cubesVisited, actual->neighbours.at(i)->getId())
+				)
+			{
+				DFS(actual->neighbours.at(i), cubesVisited, maxTower, false, 0);
+			}
 		}
 	}
-
 	actual->setVisited(false);
+
 	if (inside == false && added == true)
 		cubesVisited.pop_back();
-
 	if (cubesVisited.size() > maxTower.size())
 	{
 		maxTower = cubesVisited;
 	}
+}
 
+GraphDFS::GraphDFS(int amountOfCubes, int coloursx, int maxWeightx) : Graph(amountOfCubes, coloursx, maxWeightx)
+{
+}
+
+GraphDFS::GraphDFS(GraphBFSTree &g) : Graph(g)
+{
+}
+
+GraphDFS::~GraphDFS()
+{
 }
 
 void GraphDFS::solve()
@@ -133,12 +157,18 @@ void GraphDFS::solve()
 
 
 		std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
+
 	}
 
-	std::cout << std::endl;
+	std::cout << std::endl << "TOWER \t\t";
 	for (unsigned i = 0; i < maxTower.size(); ++i)
 	{
 		std::cout << maxTower.at(i).first << " ";
+	}
+	std::cout << std::endl << "COLOURS \t";
+	for (unsigned i = 0; i < maxTower.size(); ++i)
+	{
+		std::cout << maxTower.at(i).second->getColour() << " ";
 	}
 }
 

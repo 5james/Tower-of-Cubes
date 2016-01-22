@@ -2,6 +2,7 @@
 
 #pragma once
 #include "Graph.h"
+#include <vector>
 
 
 class GraphBFSTree : public Graph
@@ -39,6 +40,7 @@ private:
 
 public:
 	GraphBFSTree(int amountOfCubes, int coloursx, int maxWeightx);
+	GraphBFSTree(Graph& g);
 	~GraphBFSTree();
 	void solve();	
 };

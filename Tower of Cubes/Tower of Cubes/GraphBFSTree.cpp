@@ -1,6 +1,7 @@
 #include "GraphBFSTree.h"
 #include <utility>
 #include <list>
+#include <vector>
 #include <iostream>
 
 
@@ -82,7 +83,7 @@ std::vector<std::pair<int, int>> GraphBFSTree::allNeighboursOfIdWithColour(int i
 	}
 
 	std::vector<std::pair<int, int>> result;
-	for (int i = 0; i < neighbourNodes.size(); ++i)
+	for (unsigned i = 0; i < neighbourNodes.size(); ++i)
 	{
 		std::pair<int, int> x;
 		x = std::make_pair(neighbourNodes.at(i)->getId(), neighbourNodes.at(i)->getColour());
@@ -126,9 +127,14 @@ GraphBFSTree::~GraphBFSTree()
 {
 }
 
+
 GraphBFSTree::GraphBFSTree(int amountOfCubes, int coloursx, int maxWeightx) : Graph(amountOfCubes, coloursx, maxWeightx)
 {
 
+}
+
+GraphBFSTree::GraphBFSTree(Graph & g): Graph(g)
+{
 }
 
 void GraphBFSTree::solve()
@@ -171,7 +177,7 @@ void GraphBFSTree::solve()
 		while (!toDo.empty())
 		{
 			size++;
-			std::cout << size << " zaglebienie" << std::endl;
+			//std::cout << size << " zaglebienie" << std::endl;
 
 			lastLeaf = toDo.at(0);
 			std::vector<SimpleNodesTree*> nextToDo;
@@ -200,6 +206,28 @@ void GraphBFSTree::solve()
 			}
 			toDo = nextToDo;
 		}
+
+		//correction of root colour
+		SimpleNodesTree *rootCorrector = lastLeaf;
+		while (rootCorrector->parent->parent)
+			rootCorrector = rootCorrector->parent;
+		Node* tempNode = NULL;
+		int tempColour = rootCorrector->bottomColor;
+		rootCorrector = rootCorrector->parent;
+		for (unsigned i = 0; i < nodes.size(); ++i)
+		{
+			if (nodes.at(i).getColour() == tempColour &&
+				nodes.at(i).getId() == rootCorrector->id
+				)
+			{
+				tempNode = &nodes.at(i);
+			}
+		}
+		if (tempNode != NULL)
+		{
+			rootCorrector->bottomColor = tempNode->oppositeWall->getColour();
+		}
+
 		if ((unsigned)size > tower.size())
 		{
 			std::vector<std::pair<int, int> > higher;
@@ -215,7 +243,6 @@ void GraphBFSTree::solve()
 			tower = higher;
 
 		}
-
 
 
 		for (unsigned l = 0; l < toDestroy.size(); ++l)
