@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <fstream>
+#include "declarations.h"
 
 
 
@@ -162,17 +163,20 @@ void GraphDFS::solve()
 
 	}
 
-	std::cout << std::endl << "TOWER \t\t";
-	for (unsigned i = 0; i < maxTower.size(); ++i)
+	if (DEBUGINFO == true)
 	{
-		std::cout << maxTower.at(i).first << " ";
+		std::cout << std::endl << "TOWER \t\t";
+		for (unsigned i = 0; i < maxTower.size(); ++i)
+		{
+			std::cout << maxTower.at(i).first << " ";
+		}
+		std::cout << std::endl << "COLOURS \t";
+		for (unsigned i = 0; i < maxTower.size(); ++i)
+		{
+			std::cout << maxTower.at(i).second->getColour() << " ";
+		}
+		std::cout << std::endl;
 	}
-	std::cout << std::endl << "COLOURS \t";
-	for (unsigned i = 0; i < maxTower.size(); ++i)
-	{
-		std::cout << maxTower.at(i).second->getColour() << " ";
-	}
-	std::cout << std::endl;
 }
 
 

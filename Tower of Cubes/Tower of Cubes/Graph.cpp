@@ -2,6 +2,7 @@
 #include <iostream>
 #include <Windows.h>
 #include <fstream>
+#include "declarations.h"
 
 void Graph::generateColoursCube(std::vector<int>& colors)
 {
@@ -118,9 +119,11 @@ void Graph::loadNodes(char *name)
 	if (myfile.is_open())
 	{
 		myfile >> cubes;
+
+		nodes.reserve(6 * cubes);
+
 		myfile >> colours;
 		myfile >> maxWeight;
-		std::cout << cubes << " " << colours << " " << maxWeight << " ";
 		for (int i = 0; i < cubes; ++i)
 		{
 			int w;
@@ -187,6 +190,7 @@ int Graph::getMaxWeight()
 
 Graph::Graph()
 {
+	nodes.reserve(6 * cubes);
 }
 
 Graph::Graph(Graph & g)

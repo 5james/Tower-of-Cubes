@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm> 
 #include <iostream>
+#include "declarations.h"
 
 
 //void GraphBFSTree::colorOnBottom(SimpleNodesTree *& current)
@@ -256,17 +257,21 @@ void GraphBFSTree::solve()
 
 
 	std::reverse(tower.begin(), tower.end());
-	std::cout << std::endl << "TOWER \t\t";
-	for (unsigned idx = 0; idx < tower.size(); ++idx)
+
+	if (DEBUGINFO == true)
 	{
-		std::cout << tower.at(idx).first << " ";
+		std::cout << std::endl << "TOWER \t\t";
+		for (unsigned idx = 0; idx < tower.size(); ++idx)
+		{
+			std::cout << tower.at(idx).first << " ";
+		}
+		std::cout << std::endl << "COLOUR BOTTOM \t";
+		for (unsigned idx = 0; idx < tower.size(); ++idx)
+		{
+			std::cout << tower.at(idx).second << " ";
+		}
+		std::cout << std::endl;
 	}
-	std::cout << std::endl << "COLOUR BOTTOM \t";
-	for (unsigned idx = 0; idx < tower.size(); ++idx)
-	{
-		std::cout << tower.at(idx).second << " ";
-	}
-	std::cout << std::endl;
 }
 
 
