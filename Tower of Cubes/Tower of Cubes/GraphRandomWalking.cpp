@@ -1,3 +1,7 @@
+// Wieza N szescianow
+// autor: Jakub Guzek
+// ver 0.1
+
 #include "GraphRandomWalking.h"
 #include <iostream>
 #include <Windows.h>

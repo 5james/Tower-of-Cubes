@@ -1,3 +1,7 @@
+// Wieza N szescianow
+// autor: Jakub Guzek
+// ver 0.1
+
 #include "Table.h"
 
 double Table::obliczQn(double tn, int n)

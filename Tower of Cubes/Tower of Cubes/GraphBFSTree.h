@@ -1,3 +1,7 @@
+// Wieza N szescianow
+// autor: Jakub Guzek
+// ver 0.1
+
 //Low eficiency when low amount of colours in comparison with number of cubes
 
 #pragma once

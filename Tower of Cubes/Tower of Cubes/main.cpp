@@ -1,3 +1,7 @@
+// Wieza N szescianow
+// autor: Jakub Guzek
+// ver 0.1
+
 #include <iostream>
 #include <time.h>
 #include <stdio.h>
