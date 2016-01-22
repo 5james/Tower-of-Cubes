@@ -24,22 +24,24 @@ int main()
 	//g.showNodes();
 
 
-	//GraphBFSTree g(4, 6, 100);
-	//g.generateNodes();
+	GraphBFSTree g(700, 700, 700);
+	g.generateNodes();
+	std::cout << "juz" << std::endl;
+	GraphDFS c(g);
+	GraphRandomWalking s(g);
+
 	//g.showNodes();
 	////g.allNeighboursOfId(0);
-	//g.solve();
-
-
-	GraphDFS g(4, 6, 100);
-	g.generateNodes();
-	g.showNodes();
 	g.solve();
 
-	//GraphRandomWalking g;
+
+	//c.showNodes();
+	c.solve();
+
+	
 	//g.generateNodes();
 	//g.showNodes();
-	//g.solve();
+	s.solve();
 
 
 	int i;

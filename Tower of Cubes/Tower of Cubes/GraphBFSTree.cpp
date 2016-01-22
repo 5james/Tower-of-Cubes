@@ -2,6 +2,7 @@
 #include <utility>
 #include <list>
 #include <vector>
+#include <algorithm> 
 #include <iostream>
 
 
@@ -249,6 +250,8 @@ void GraphBFSTree::solve()
 			delete toDestroy.at(l);
 	}
 
+
+	std::reverse(tower.begin(), tower.end());
 	std::cout << std::endl << "TOWER \t\t";
 	for (unsigned idx = 0; idx < tower.size(); ++idx)
 	{
@@ -259,6 +262,7 @@ void GraphBFSTree::solve()
 	{
 		std::cout << tower.at(idx).second << " ";
 	}
+	std::cout << std::endl;
 }
 
 

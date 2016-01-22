@@ -112,7 +112,11 @@ GraphDFS::GraphDFS(int amountOfCubes, int coloursx, int maxWeightx) : Graph(amou
 {
 }
 
-GraphDFS::GraphDFS(GraphBFSTree &g) : Graph(g)
+GraphDFS::GraphDFS(Graph &g) : Graph(g)
+{
+}
+
+GraphDFS::GraphDFS()
 {
 }
 
@@ -140,11 +144,11 @@ void GraphDFS::solve()
 		if (tempMaxTower.size() > maxTower.size())
 		{
 			maxTower = tempMaxTower;
-			std::cout << std::endl << "Zmieniam dla " << i;
+			//std::cout << std::endl << "Zmieniam dla " << i;
 		}
 		if (tempMaxTower.size() == cubes)
 		{
-			std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
+			//std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
 
 			break;
 		}
@@ -156,7 +160,7 @@ void GraphDFS::solve()
 		//}
 
 
-		std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
+		//std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
 
 	}
 
@@ -170,6 +174,7 @@ void GraphDFS::solve()
 	{
 		std::cout << maxTower.at(i).second->getColour() << " ";
 	}
+	std::cout << std::endl;
 }
 
 

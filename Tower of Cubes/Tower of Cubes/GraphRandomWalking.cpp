@@ -5,17 +5,17 @@
 
 
 
-bool GraphRandomWalking::cubeIsNotVisited(std::vector<int>& cubesVisited, int id)
+bool GraphRandomWalking::cubeIsNotVisited(std::vector<std::pair<int, Node*> >& cubesVisited, int id)
 {
 	for (unsigned i = 0; i < cubesVisited.size()-1; ++i)
 	{
-		if (id == cubesVisited.at(i))
+		if (id == cubesVisited.at(i).first)
 			return false;
 	}
 	return true;
 }
 
-void GraphRandomWalking::RandomWalking(Node *actual, std::vector<int>& cubesVisited)
+void GraphRandomWalking::RandomWalking(Node *actual, std::vector<std::pair<int, Node*> >& cubesVisited)
 {
 
 	bool thereAreNeighbours = false;
@@ -24,15 +24,21 @@ void GraphRandomWalking::RandomWalking(Node *actual, std::vector<int>& cubesVisi
 		if (actual->neighbours.at(i)->getColour() != actual->getColour())
 			thereAreNeighbours = true;
 	}
-	cubesVisited.push_back(actual->getId());
+	std::pair<int, Node*> temp;
+	temp = std::make_pair(actual->getId(), actual);
+	cubesVisited.push_back(temp);
 
 	while (thereAreNeighbours)
 	{
 		actual->setVisited(true);
 
 
-		if (actual->getId() != cubesVisited.back())
-			cubesVisited.push_back(actual->getId());
+		if (actual->getId() != cubesVisited.back().first)
+		{
+			std::pair<int, Node*> temp2;
+			temp2 = std::make_pair(actual->getId(), actual);
+			cubesVisited.push_back(temp2);
+		}
 
 		std::vector<Node*> possibleNext;
 		for (unsigned i = 0; i < actual->neighbours.size(); ++i)
@@ -58,35 +64,58 @@ void GraphRandomWalking::RandomWalking(Node *actual, std::vector<int>& cubesVisi
 	}
 }
 
+GraphRandomWalking::GraphRandomWalking(int amountOfCubes, int coloursx, int maxWeightx) : Graph(amountOfCubes, coloursx, maxWeightx)
+{
+}
+
+GraphRandomWalking::GraphRandomWalking(Graph & g) : Graph(g)
+{
+}
+
+GraphRandomWalking::GraphRandomWalking()
+{
+}
+
+GraphRandomWalking::~GraphRandomWalking()
+{
+}
+
 void GraphRandomWalking::solve()
 {
-	std::vector<int> maxTower;
+	std::vector<std::pair<int, Node*> > maxTower;
 	for (unsigned i = 0; i < nodes.size(); ++i)
 	{
-		std::vector<int> tempTower;
+		std::vector<std::pair<int, Node*> > tempTower;
 
 		for (auto j = nodes.begin(); j != nodes.end(); ++j)
 		{
 			j->setVisited(false);
 		}
 
-		if (nodes.at(i).getWeight() == Node::maxWeight)
+		//if (nodes.at(i).getWeight() == Node::maxWeight)
 		{
 			RandomWalking(&(nodes.at(i)), tempTower);
 		}
 		if (tempTower.size() > maxTower.size())
 		{
 			maxTower = tempTower;
-			std::cout << std::endl << " Zmieniam dla " << i;
+			//std::cout << std::endl << " Zmieniam dla " << i;
 		}
-		std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
+		//std::cout << std::endl << "Dla node " << i << " " << maxTower.size();
 	}
 
-	std::cout << std::endl << maxTower.size() << std::endl;
+
+	std::cout << std::endl << "TOWER \t\t";
 	for (unsigned i = 0; i < maxTower.size(); ++i)
 	{
-		std::cout << maxTower.at(i) << " ";
+		std::cout << maxTower.at(i).first << " ";
 	}
+	std::cout << std::endl << "COLOURS \t";
+	for (unsigned i = 0; i < maxTower.size(); ++i)
+	{
+		std::cout << maxTower.at(i).second->getColour() << " ";
+	}
+	std::cout << std::endl;
 }
 
 

@@ -11,7 +11,8 @@ private:
 	void DFS(Node* actual, std::vector<std::pair<int, Node*> > &cubesVisited, std::vector<std::pair<int, Node*> > &maxTower, bool inside, int nested);
 public:
 	GraphDFS(int amountOfCubes, int coloursx, int maxWeightx);
-	GraphDFS(GraphBFSTree &g);
+	GraphDFS(Graph &g);
+	GraphDFS();
 	~GraphDFS();
 	void solve();
 
