@@ -6,8 +6,10 @@
 #include "GraphDFS.h"
 #include "GraphRandomWalking.h"
 #include "Generator.h"
+#include "Table.h"
 #include <string>
 #include <sstream>
+#include <ctime>
 #include "declarations.h"
 
 int Node::maxWeight = 0;
@@ -15,6 +17,7 @@ bool DEBUGINFO;
 
 void loadAndSolve();
 void generateAndShowOutput(int i, int c, int w);
+void generateAndTable(int choice);
 void safeIntRead(int &x);
 
 int main()
@@ -33,17 +36,24 @@ int main()
 	else if (i == 2)
 	{
 		std::cout << "Podaj trzy parametry pod spacjach: ilosc szescianow, ilosc kolorow(zalecana ilosc >= ilosc szescianow), max waga\n";
-		int i, c, w;
+		int j, c, w;
 
-		safeIntRead(i);
+		safeIntRead(j);
 		safeIntRead(c);
 		safeIntRead(w);
 
-		generateAndShowOutput(i, c, w);
+		generateAndShowOutput(j, c, w);
 	}
 	else if (i == 3)
 	{
-		
+		std::cout << "Wybierz jeden algorytm\n";
+		std::cout << "1. BFS\n";
+		std::cout << "2. DFS\n";
+		std::cout << "3. RandomWalking\n";
+		int choice;
+		safeIntRead(choice);
+
+		generateAndTable(choice);
 	}
 	else if (i == 99)
 	{
@@ -62,32 +72,58 @@ int main()
 		std::cout << "Zla wartosc, koncze dzialanie programu\n";
 	}
 
-
-	//if (remove("test.txt") != 0)
-	//	perror("Error deleting file");
-	//else
-	//	puts("File successfully deleted");
-
-
-	//GraphBFSTree g(700, 700, 700);
-	//g.generateNodes();
-	//std::cout << "juz" << std::endl;
-	//GraphDFS c(g);
-	//GraphRandomWalking s(g);
-
-	//g.solve();
-	//c.solve();
-	//s.solve();
-
-	//Generator g(2, 10, 10);
-	//g.generate();
-
-
-
-
-
 	std::cin >> i;
 	DEBUGINFO = true;
+}
+
+void generateAndTable(int choice)
+{
+	if (choice == 1)
+	{
+		Table::getInstance().bfs();
+	}
+	else if (choice == 2)
+	{
+		Table::getInstance().dfs();
+	}
+	else if (choice == 3)
+	{
+		Table::getInstance().random();
+	}
+
+	for (int i = 0; i < NOTESTS; ++i)
+	{
+		std::cout << NOTESTS - i - 1 << std::endl;
+		Graph *g;
+
+		if (choice == 1)
+		{
+			g = new GraphBFSTree(Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i));
+		}
+		else if (choice == 2)
+		{
+			g = new GraphDFS(Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i));
+		}
+		else if (choice == 3)
+		{
+			g = new GraphRandomWalking(Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i));
+		}
+		else
+		{
+			std::cout << "Bledna dana, koncze program";
+			return;
+		}
+		g->generateNodes();
+		clock_t start = clock();
+		g->solve();
+		clock_t koniec = clock();
+		clock_t tm = koniec - start;
+
+		Table::getInstance().setTn(i, tm);
+	}
+	for (int i = 0; i < NOTESTS; ++i)
+		Table::getInstance().setQn(i);
+	Table::getInstance().drawTable();
 }
 
 void loadAndSolve()
