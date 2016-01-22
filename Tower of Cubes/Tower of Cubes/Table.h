@@ -8,7 +8,7 @@
 #include <ctime>
 #include <cmath>
 
-#define NOTESTS 10
+#define NOTESTS 4
 #define MINTEST 50
 #define MAXTEST 500
 

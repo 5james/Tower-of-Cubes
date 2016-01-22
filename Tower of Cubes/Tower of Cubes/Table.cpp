@@ -50,7 +50,7 @@ void Table::dfs()
 void Table::random()
 {
 	for (int i = 0; i < NOTESTS; ++i)
-		OTn[i] = NoPrisms[i] * log2(NoPrisms[i]);
+		OTn[i] = log10(NoPrisms[i]/log2(NoPrisms[i]));
 }
 
 double Table::obliczSekundy(clock_t czas)

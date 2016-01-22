@@ -76,8 +76,7 @@ int main()
 		std::cout << "Zla wartosc, koncze dzialanie programu\n";
 	}
 
-	std::cin >> i;
-	DEBUGINFO = true;
+	getchar();
 }
 
 void generateAndTable(int choice)
@@ -95,9 +94,10 @@ void generateAndTable(int choice)
 		Table::getInstance().random();
 	}
 
+	std::cout << "ODLICZANIE:" << std::endl;
 	for (int i = 0; i < NOTESTS; ++i)
 	{
-		std::cout << NOTESTS - i - 1 << std::endl;
+		std::cout << NOTESTS - i << std::endl;
 		Graph *g;
 
 		if (choice == 1)
@@ -151,6 +151,7 @@ void generateAndShowOutput(int i, int c, int w)
 
 	GraphBFSTree g(i, c, w);
 	g.generateNodes();
+	g.showNodes();
 
 	GraphDFS d(g);
 	GraphRandomWalking r(g);
