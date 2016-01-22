@@ -5,48 +5,40 @@
 #include "GraphBFSTree.h"
 #include "GraphDFS.h"
 #include "GraphRandomWalking.h"
+#include "Generator.h"
 int Node::maxWeight = 0;
+
 
 
 int main()
 {
 	srand((unsigned)time((time_t)NULL));
-
-
-	if (remove("test.txt") != 0)
-		perror("Error deleting file");
-	else
-		puts("File successfully deleted");
-
-
-	//Graph g;
-	//g.generateNodes();
-	//g.showNodes();
-
-
-	GraphBFSTree g(700, 700, 700);
-	g.generateNodes();
-	std::cout << "juz" << std::endl;
-	GraphDFS c(g);
-	GraphRandomWalking s(g);
-
-	//g.showNodes();
-	////g.allNeighboursOfId(0);
-	g.solve();
-
-
-	//c.showNodes();
-	c.solve();
-
 	
-	//g.generateNodes();
-	//g.showNodes();
-	s.solve();
+	//std::cout << "Wybierz tryb pracy zgodnie z README\n";
+	//int i;
+	//std::cin >> i;
 
+
+	//if (remove("test.txt") != 0)
+	//	perror("Error deleting file");
+	//else
+	//	puts("File successfully deleted");
+
+
+
+	//GraphBFSTree g(700, 700, 700);
+	//g.generateNodes();
+	//std::cout << "juz" << std::endl;
+	//GraphDFS c(g);
+	//GraphRandomWalking s(g);
+
+	//g.solve();
+	//c.solve();
+	//s.solve();
+
+	Generator mygen(200, 200, 200);
+	mygen.generate();
 
 	int i;
 	std::cin >> i;
 }
-
-
-//Czy wszystkie musz¹ siê wykonaæ jedno po drugim (na 1 zestawie danych)

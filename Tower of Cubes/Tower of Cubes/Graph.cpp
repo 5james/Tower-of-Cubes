@@ -112,6 +112,16 @@ void Graph::generateNodes()
 	addColourNeighbourhood();
 }
 
+void Graph::loadNodes()
+{
+	std::ifstream myfile("data.txt");
+	if (myfile.is_open())
+	{
+
+	}
+}
+
+
 void Graph::showNodes()
 {
 	//std::ofstream myfile ("test.txt");

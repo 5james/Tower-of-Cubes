@@ -20,6 +20,7 @@ public:
 	Graph(int amountOfCubes, int coloursx, int maxWeightx);
 	~Graph();
 	void generateNodes();
+	void loadNodes();
 	void showNodes();
 	std::vector<Node>* getNodes();
 	int getCubes();

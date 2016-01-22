@@ -118,6 +118,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Generator.cpp" />
     <ClCompile Include="Graph.cpp" />
     <ClCompile Include="GraphBFSTree.cpp" />
     <ClCompile Include="GraphDFS.cpp" />
@@ -127,6 +128,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="declarations.h" />
+    <ClInclude Include="Generator.h" />
     <ClInclude Include="Graph.h" />
     <ClInclude Include="GraphBFSTree.h" />
     <ClInclude Include="GraphDFS.h" />
