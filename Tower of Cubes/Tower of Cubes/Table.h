@@ -8,8 +8,8 @@
 #include <ctime>
 #include <cmath>
 
-#define NOTESTS 4
-#define MINTEST 50
+#define NOTESTS 50
+#define MINTEST 10
 #define MAXTEST 500
 
 class Table

@@ -139,11 +139,11 @@ GraphBFSTree::GraphBFSTree(int amountOfCubes, int coloursx, int maxWeightx) : Gr
 
 }
 
-GraphBFSTree::GraphBFSTree(Graph & g): Graph(g)
+GraphBFSTree::GraphBFSTree(Graph & g) : Graph(g)
 {
 }
 
-GraphBFSTree::GraphBFSTree(char * name): Graph(name)
+GraphBFSTree::GraphBFSTree(char * name) : Graph(name)
 {
 }
 
@@ -198,15 +198,12 @@ void GraphBFSTree::solve()
 				{
 					if (isIdUnique(toDoNeighbourhood.at(k).first, toDo.at(j)))
 					{
-
-
 						SimpleNodesTree *next = new SimpleNodesTree();
 
 						next->id = toDoNeighbourhood.at(k).first;
 						next->depth = toDo.at(j)->depth + 1;
 						next->parent = toDo.at(j);
 						next->bottomColor = toDoNeighbourhood.at(k).second;
-
 
 						toDo.at(j)->child.push_back(next);
 						nextToDo.push_back(next);
@@ -218,24 +215,42 @@ void GraphBFSTree::solve()
 		}
 
 		//correction of root colour
-		SimpleNodesTree *rootCorrector = lastLeaf;
-		while (rootCorrector->parent->parent)
-			rootCorrector = rootCorrector->parent;
+		SimpleNodesTree *rootCorrector;
+		rootCorrector = lastLeaf;
+		if (rootCorrector && rootCorrector->parent)
+			while (rootCorrector->parent->parent)
+			{
+				rootCorrector = rootCorrector->parent;
+			}
 		Node* tempNode = NULL;
 		int tempColour = rootCorrector->bottomColor;
-		rootCorrector = rootCorrector->parent;
-		for (unsigned i = 0; i < nodes.size(); ++i)
+		if (rootCorrector->parent)
 		{
-			if (nodes.at(i).getColour() == tempColour &&
-				nodes.at(i).getId() == rootCorrector->id
-				)
+			rootCorrector = rootCorrector->parent;
+			for (unsigned i = 0; i < nodes.size(); ++i)
 			{
-				tempNode = &nodes.at(i);
+				if (nodes.at(i).getColour() == tempColour &&
+					nodes.at(i).getId() == rootCorrector->id
+					)
+				{
+					tempNode = &nodes.at(i);
+				}
+			}
+			if (tempNode != NULL)
+			{
+				rootCorrector->bottomColor = tempNode->oppositeWall->getColour();
 			}
 		}
-		if (tempNode != NULL)
+		else
 		{
-			rootCorrector->bottomColor = tempNode->oppositeWall->getColour();
+			for (unsigned i = 0; i < nodes.size(); ++i)
+			{
+				if (nodes.at(i).getId() == rootCorrector->id)
+				{
+					tempNode = &nodes.at(i);
+				}
+			}
+			rootCorrector->bottomColor = tempNode->getColour();
 		}
 
 		if ((unsigned)size > tower.size())
@@ -261,6 +276,7 @@ void GraphBFSTree::solve()
 
 
 	std::reverse(tower.begin(), tower.end());
+
 
 	if (DEBUGINFO == true)
 	{

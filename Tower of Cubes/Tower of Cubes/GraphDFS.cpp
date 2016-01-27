@@ -167,6 +167,11 @@ void GraphDFS::solve()
 
 	}
 
+	for (auto j = nodes.begin(); j != nodes.end(); ++j)
+	{
+		j->setVisited(false);
+	}
+
 	if (DEBUGINFO == true)
 	{
 		std::cout << std::endl << "TOWER \t\t";

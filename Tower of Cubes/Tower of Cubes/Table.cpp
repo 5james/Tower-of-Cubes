@@ -38,19 +38,19 @@ void Table::setQn(int i)
 void Table::bfs()
 {
 	for (int i = 0; i < NOTESTS; ++i)
-		OTn[i] = NoPrisms[i] * NoPrisms[i] * log2(NoPrisms[i]);
+		OTn[i] = std::pow(NoPrisms[i], 2);
 }
 
 void Table::dfs()
 {
 	for (int i = 0; i < NOTESTS; ++i)
-		OTn[i] = NoPrisms[i] * NoPrisms[i] * log2(NoPrisms[i]) * log2(NoPrisms[i]) + 2 * NoPrisms[i] * NoPrisms[i];
+		OTn[i] = std::pow(NoPrisms[i], 2)* log2(NoPrisms[i]) / 6;
 }
 
 void Table::random()
 {
 	for (int i = 0; i < NOTESTS; ++i)
-		OTn[i] = log10(NoPrisms[i]/log2(NoPrisms[i]));
+		OTn[i] = 6 * NoPrisms[i]* NoPrisms[i] / (log2(NoPrisms[i])) - 6 * NoPrisms[i];
 }
 
 double Table::obliczSekundy(clock_t czas)
@@ -60,8 +60,6 @@ double Table::obliczSekundy(clock_t czas)
 		result = 1.0;
 	return result;
 }
-
-
 
 Table::~Table()
 {

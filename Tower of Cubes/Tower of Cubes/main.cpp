@@ -3,6 +3,7 @@
 // ver 0.1
 
 #include <iostream>
+#include <algorithm> // max
 #include <time.h>
 #include <stdio.h>
 #include "Graph.h"
@@ -31,7 +32,7 @@ int main()
 	std::cout << "Wybierz tryb pracy zgodnie z README\n";
 	int i;
 	std::cin >> i;
-	
+
 	if (i == 1)
 	{
 		std::cout << "Wczytuje z pliku data.txt i rozwiazuje\n";
@@ -61,7 +62,7 @@ int main()
 	}
 	else if (i == 99)
 	{
-		std::cout << "Podaj trzy parametry pod spacjach: ilosc szescianow, ilosc kolorow(zalecana ilosc >= ilosc szescianow), max waga\n";
+		std::cout << "Podaj trzy parametry pod enterach: \nilosc szescianow, \nilosc kolorow(zalecana ilosc >= ilosc szescianow), \nmax waga\n";
 		int i, c, w;
 
 		safeIntRead(i);
@@ -94,23 +95,24 @@ void generateAndTable(int choice)
 		Table::getInstance().random();
 	}
 
-	std::cout << "ODLICZANIE:" << std::endl;
+	std::cout << "ODLICZANIE przy 1000 kolorach i maxymalnej wadze 2000:" << std::endl;
 	for (int i = 0; i < NOTESTS; ++i)
 	{
-		std::cout << NOTESTS - i << std::endl;
+		std::cout << NOTESTS - i << "\t" << (Table::getInstance().getNoPrisms(i)) << std::endl;
+		Node::maxWeight = 0;
 		Graph *g;
 
 		if (choice == 1)
 		{
-			g = new GraphBFSTree(Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i));
+			g = new GraphBFSTree(Table::getInstance().getNoPrisms(i), 1000, 2000);
 		}
 		else if (choice == 2)
 		{
-			g = new GraphDFS(Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i));
+			g = new GraphDFS(Table::getInstance().getNoPrisms(i), 1000, 2000);
 		}
 		else if (choice == 3)
 		{
-			g = new GraphRandomWalking(Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i), Table::getInstance().getNoPrisms(i));
+			g = new GraphRandomWalking(Table::getInstance().getNoPrisms(i), 1000, 2000);
 		}
 		else
 		{
@@ -122,8 +124,18 @@ void generateAndTable(int choice)
 		g->solve();
 		clock_t koniec = clock();
 		clock_t tm = koniec - start;
-
 		Table::getInstance().setTn(i, tm);
+		if (choice == 1)
+		{
+			g = new GraphBFSTree(Table::getInstance().getNoPrisms(i), 1000, 2000);
+			g->generateNodes();
+			clock_t start = clock();
+			g->solve();
+			clock_t koniec = clock();
+			clock_t tm2 = koniec - start;
+			clock_t t = std::max(tm2, tm);
+			Table::getInstance().setTn(i, t);
+		}
 	}
 	for (int i = 0; i < NOTESTS; ++i)
 		Table::getInstance().setQn(i);
@@ -144,6 +156,8 @@ void loadAndSolve()
 	g.solve();
 	d.solve();
 	r.solve();
+
+	getchar();
 }
 void generateAndShowOutput(int i, int c, int w)
 {
@@ -167,7 +181,7 @@ void safeIntRead(int &x)
 	while (true) {
 		std::cout << "Prosze wpisac liczbe: ";
 		std::getline(std::cin, input);
-		
+
 		// This code converts from string to number safely.
 		std::stringstream myStream(input);
 		if (myStream >> temp)
