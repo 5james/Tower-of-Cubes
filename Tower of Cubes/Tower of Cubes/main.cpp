@@ -22,8 +22,10 @@ bool DEBUGINFO;
 
 void loadAndSolve();
 void generateAndShowOutput(int i, int c, int w);
-void generateAndTable(int choice);
+void generateAndTableN(int choice2);
+void generateAndTableK(int choice2);
 void safeIntRead(int &x);
+
 
 int main()
 {
@@ -51,14 +53,23 @@ int main()
 	}
 	else if (i == 3)
 	{
+		std::cout << "Wybierz zaleznosci od:\n";
+		std::cout << "1. Liczby N szescianow\n";
+		std::cout << "2. Liczby K kolorow\n";
+		int choice1;
+		safeIntRead(choice1);
+
 		std::cout << "Wybierz jeden algorytm\n";
 		std::cout << "1. BFS\n";
 		std::cout << "2. DFS\n";
 		std::cout << "3. RandomWalking\n";
-		int choice;
-		safeIntRead(choice);
+		int choice2;
+		safeIntRead(choice2);
 
-		generateAndTable(choice);
+		if (choice1 == 1)
+			generateAndTableN(choice2);
+		else if (choice1 == 2)
+			generateAndTableK(choice2);
 	}
 	else if (i == 99)
 	{
@@ -80,60 +91,59 @@ int main()
 	getchar();
 }
 
-void generateAndTable(int choice)
+void generateAndTableN(int choice)
 {
+	int retests = 2;
 	if (choice == 1)
 	{
-		Table::getInstance().bfs();
+		Table::getInstance().bfs500();
+		retests = 4;
+		std::cout << "ODLICZANIE przy 5000 kolorach i maxymalnej wadze 2000:" << std::endl;
 	}
 	else if (choice == 2)
 	{
-		Table::getInstance().dfs();
+		Table::getInstance().dfs500();
+		std::cout << "ODLICZANIE przy 1000 kolorach i maxymalnej wadze 2000:" << std::endl;
 	}
 	else if (choice == 3)
 	{
-		Table::getInstance().random();
+		Table::getInstance().random500();
+		std::cout << "ODLICZANIE przy 1000 kolorach i maxymalnej wadze 2000:" << std::endl;
 	}
 
-	std::cout << "ODLICZANIE przy 1000 kolorach i maxymalnej wadze 2000:" << std::endl;
 	for (int i = 0; i < NOTESTS; ++i)
 	{
 		std::cout << NOTESTS - i << "\t" << (Table::getInstance().getNoPrisms(i)) << std::endl;
-		Node::maxWeight = 0;
-		Graph *g;
+		clock_t t = 0;
+		DEBUGINFO = true;
+		for (int j = 0; j < retests; ++j)
+		{
+			Node::maxWeight = 0;
+			Graph *g;
 
-		if (choice == 1)
-		{
-			g = new GraphBFSTree(Table::getInstance().getNoPrisms(i), 1000, 2000);
-		}
-		else if (choice == 2)
-		{
-			g = new GraphDFS(Table::getInstance().getNoPrisms(i), 1000, 2000);
-		}
-		else if (choice == 3)
-		{
-			g = new GraphRandomWalking(Table::getInstance().getNoPrisms(i), 1000, 2000);
-		}
-		else
-		{
-			std::cout << "Bledna dana, koncze program";
-			return;
-		}
-		g->generateNodes();
-		clock_t start = clock();
-		g->solve();
-		clock_t koniec = clock();
-		clock_t tm = koniec - start;
-		Table::getInstance().setTn(i, tm);
-		if (choice == 1)
-		{
-			g = new GraphBFSTree(Table::getInstance().getNoPrisms(i), 1000, 2000);
+			if (choice == 1)
+			{
+				g = new GraphBFSTree(Table::getInstance().getNoPrisms(i), 5000, 2000);
+			}
+			else if (choice == 2)
+			{
+				g = new GraphDFS(Table::getInstance().getNoPrisms(i), 1000, 2000);
+			}
+			else if (choice == 3)
+			{
+				g = new GraphRandomWalking(Table::getInstance().getNoPrisms(i), 1000, 2000);
+			}
+			else
+			{
+				std::cout << "Bledna dana, koncze program";
+				return;
+			}
 			g->generateNodes();
 			clock_t start = clock();
 			g->solve();
 			clock_t koniec = clock();
-			clock_t tm2 = koniec - start;
-			clock_t t = std::max(tm2, tm);
+			clock_t tm = koniec - start;
+			t = std::max(tm, t);
 			Table::getInstance().setTn(i, t);
 		}
 	}
@@ -142,6 +152,67 @@ void generateAndTable(int choice)
 	Table::getInstance().drawTable();
 }
 
+
+void generateAndTableK(int choice)
+{
+	int retests = 1;
+	if (choice == 1)
+	{
+		Table::getInstance().bfs100K(100);
+		retests = 1;
+		std::cout << "ODLICZANIE przy 100 szescianach i maxymalnej wadze 2000:" << std::endl;
+	}
+	else if (choice == 2)
+	{
+		Table::getInstance().dfs100K(100);
+		std::cout << "ODLICZANIE przy 100 szescianach i maxymalnej wadze 2000:" << std::endl;
+	}
+	else if (choice == 3)
+	{
+		Table::getInstance().random100K(100);
+		std::cout << "ODLICZANIE przy 100 szescianach i maxymalnej wadze 2000:" << std::endl;
+	}
+
+	for (int i = 0; i < NOTESTS; ++i)
+	{
+		std::cout << NOTESTS - i << "\t" << (Table::getInstance().getNoPrisms(i)) << std::endl;
+		clock_t t = 0;
+		DEBUGINFO = true;
+		for (int j = 0; j < retests; ++j)
+		{
+			Node::maxWeight = 0;
+			Graph *g;
+
+			if (choice == 1)
+			{
+				g = new GraphBFSTree(100, (Table::getInstance().getNoPrisms(i)), 2000);
+			}
+			else if (choice == 2)
+			{
+				g = new GraphDFS(100, (Table::getInstance().getNoPrisms(i)), 2000);
+			}
+			else if (choice == 3)
+			{
+				g = new GraphRandomWalking(100, (Table::getInstance().getNoPrisms(i)), 2000);
+			}
+			else
+			{
+				std::cout << "Bledna dana, koncze program";
+				return;
+			}
+			g->generateNodes();
+			clock_t start = clock();
+			g->solve();
+			clock_t koniec = clock();
+			clock_t tm = koniec - start;
+			t = std::max(tm, t);
+			Table::getInstance().setTn(i, t);
+		}
+	}
+	for (int i = 0; i < NOTESTS; ++i)
+		Table::getInstance().setQn(i);
+	Table::getInstance().drawTable();
+}
 void loadAndSolve()
 {
 	DEBUGINFO = true;

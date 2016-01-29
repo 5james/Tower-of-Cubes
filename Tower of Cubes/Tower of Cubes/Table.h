@@ -8,9 +8,9 @@
 #include <ctime>
 #include <cmath>
 
-#define NOTESTS 50
-#define MINTEST 10
-#define MAXTEST 500
+#define NOTESTS 20
+#define MINTEST 50
+#define MAXTEST 1000
 
 class Table
 {
@@ -46,8 +46,11 @@ public:
 	int getNoPrisms(int n); // <<  Metoda zwraca wartosc pola NoPrisms[n]
 	void setTn(int i, clock_t czas); // << Metoda rejestruje podany czas na i-tej pozycji w tablicy przechowujacej czasy wykonan
 	void setQn(int i); // << Metoda ustawia wylicza oraz rejestruje na i-tej pozycji wspolczynnik Qn w tablicy przechowyjacej te wspolczynniki
-	void bfs();
-	void dfs();
-	void random();
+	void bfs500();
+	void dfs500();
+	void random500();
+	void bfs100K(int K);
+	void dfs100K(int K);
+	void random100K(int K);
 };
 
