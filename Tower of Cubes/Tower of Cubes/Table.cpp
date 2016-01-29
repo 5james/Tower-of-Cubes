@@ -44,7 +44,7 @@ void Table::bfs500()
 void Table::dfs500()
 {
 	for (int i = 0; i < NOTESTS; ++i)
-		OTn[i] = std::pow(NoPrisms[i], 2)* log2(NoPrisms[i])* log2(NoPrisms[i]) / 6 - 3 * NoPrisms[i];
+		OTn[i] = std::pow(NoPrisms[i], 2)* log2(NoPrisms[i])  / 6 - 2.5 * NoPrisms[i]-40;
 }
 
 void Table::random500()
@@ -52,6 +52,9 @@ void Table::random500()
 	for (int i = 0; i < NOTESTS; ++i)
 		OTn[i] = 6 * NoPrisms[i] * NoPrisms[i] * log2(NoPrisms[i]) / (log2(NoPrisms[i])) - 6 * NoPrisms[i] - log2(NoPrisms[i]);
 }
+
+
+
 void Table::bfs100K(int K)
 {
 	for (int i = 0; i < NOTESTS; ++i)
@@ -71,7 +74,7 @@ void Table::dfs100K(int K)
 	for (int i = 0; i < NOTESTS; ++i)
 	{
 		if (NoPrisms[i] < K)
-			OTn[i] = 20000;
+			OTn[i] = std::pow((float)NoPrisms[i], 2.8);
 		else
 			OTn[i] = 333;
 	}
